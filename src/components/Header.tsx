@@ -3,9 +3,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useCart } from './CartContext';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { getTotalItems, isLoaded } = useCart();
+  const totalItems = isLoaded ? getTotalItems() : 0;
 
   return (
     <header className="bg-white shadow-lg border-b border-gray-200">
@@ -25,7 +28,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
               Home
             </Link>
@@ -37,6 +40,15 @@ export default function Header() {
             </Link>
             <Link href="/contact" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
               Contact
+            </Link>
+            <Link href="/checkout" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium flex items-center space-x-2 relative">
+              <span>🛒</span>
+              <span>Cart</span>
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
             </Link>
           </nav>
 
@@ -70,6 +82,9 @@ export default function Header() {
               </Link>
               <Link href="/contact" className="block py-2 text-slate-700 hover:text-blue-600 transition-colors font-medium">
                 Contact
+              </Link>
+              <Link href="/checkout" className="block py-2 bg-blue-600 hover:bg-blue-700 text-white px-4 rounded-lg transition-colors font-medium relative">
+                🛒 Cart {totalItems > 0 && `(${totalItems})`}
               </Link>
             </div>
           </nav>

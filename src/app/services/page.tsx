@@ -1,7 +1,20 @@
+'use client';
 import Link from "next/link";
 import Image from "next/image";
+import { useCart } from "../../components/CartContext";
+import { useState } from "react";
 
 export default function Services() {
+  const { addItem } = useCart();
+  const [addedItems, setAddedItems] = useState<{ [key: number]: boolean }>({});
+
+  const handleAddToCart = (item: { id: number; name: string; price: number; image: string }) => {
+    addItem(item);
+    setAddedItems(prev => ({ ...prev, [item.id]: true }));
+    setTimeout(() => {
+      setAddedItems(prev => ({ ...prev, [item.id]: false }));
+    }, 2000);
+  };
   return (
     <div>
       {/* Hero Section */}
@@ -111,7 +124,8 @@ export default function Services() {
             {/* Basic Plan */}
             <div className="bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-blue-500 transition-colors">
               <h3 className="text-2xl font-bold text-gray-800 mb-2">Basic</h3>
-              <div className="text-4xl font-bold text-blue-600 mb-4">50 Mbps</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">50 Mbps</div>
+              <div className="text-2xl font-bold text-gray-800 mb-4">₹1,500<span className="text-sm font-normal text-gray-600">/month</span></div>
               <p className="text-gray-600 mb-6">Perfect for browsing, email, and light streaming</p>
               <ul className="space-y-3 mb-8 text-left">
                 <li className="flex items-center text-gray-600">
@@ -131,12 +145,24 @@ export default function Services() {
                   No long-term contracts
                 </li>
               </ul>
-              <Link
-                href="/contact"
-                className="block bg-gray-800 hover:bg-gray-900 text-white py-3 rounded-lg font-semibold transition-colors"
-              >
-                Choose Plan
-              </Link>
+              <div className="space-y-3">
+                <button
+                  onClick={() => handleAddToCart({ id: 1, name: "Basic Plan - 50 Mbps", price: 1500, image: "/images/internet-basic.jpg" })}
+                  className={`w-full py-3 rounded-lg font-semibold transition-colors ${
+                    addedItems[1] 
+                      ? 'bg-green-600 text-white' 
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
+                >
+                  {addedItems[1] ? '✓ Added to Cart' : 'Add to Cart'}
+                </button>
+                <Link
+                  href="/contact"
+                  className="block bg-gray-800 hover:bg-gray-900 text-white py-3 rounded-lg font-semibold transition-colors"
+                >
+                  Get Quote
+                </Link>
+              </div>
             </div>
 
             {/* Premium Plan */}
@@ -145,7 +171,8 @@ export default function Services() {
                 Most Popular
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-2">Premium</h3>
-              <div className="text-4xl font-bold text-blue-600 mb-4">200 Mbps</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">200 Mbps</div>
+              <div className="text-2xl font-bold text-gray-800 mb-4">₹2,500<span className="text-sm font-normal text-gray-600">/month</span></div>
               <p className="text-gray-600 mb-6">Ideal for families and multiple devices</p>
               <ul className="space-y-3 mb-8 text-left">
                 <li className="flex items-center text-gray-600">
@@ -165,18 +192,31 @@ export default function Services() {
                   Free security suite
                 </li>
               </ul>
-              <Link
-                href="/contact"
-                className="block bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors"
-              >
-                Choose Plan
-              </Link>
+              <div className="space-y-3">
+                <button
+                  onClick={() => handleAddToCart({ id: 2, name: "Premium Plan - 200 Mbps", price: 2500, image: "/images/internet-premium.jpg" })}
+                  className={`w-full py-3 rounded-lg font-semibold transition-colors ${
+                    addedItems[2] 
+                      ? 'bg-green-600 text-white' 
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
+                >
+                  {addedItems[2] ? '✓ Added to Cart' : 'Add to Cart'}
+                </button>
+                <Link
+                  href="/contact"
+                  className="block bg-gray-800 hover:bg-gray-900 text-white py-3 rounded-lg font-semibold transition-colors"
+                >
+                  Get Quote
+                </Link>
+              </div>
             </div>
 
             {/* Enterprise Plan */}
             <div className="bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-purple-500 transition-colors">
               <h3 className="text-2xl font-bold text-gray-800 mb-2">Enterprise</h3>
-              <div className="text-4xl font-bold text-purple-600 mb-4">1 Gbps</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">1 Gbps</div>
+              <div className="text-2xl font-bold text-gray-800 mb-4">₹5,000<span className="text-sm font-normal text-gray-600">/month</span></div>
               <p className="text-gray-600 mb-6">Maximum speed for businesses and power users</p>
               <ul className="space-y-3 mb-8 text-left">
                 <li className="flex items-center text-gray-600">
@@ -196,12 +236,24 @@ export default function Services() {
                   SLA guarantee
                 </li>
               </ul>
-              <Link
-                href="/contact"
-                className="block bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition-colors"
-              >
-                Choose Plan
-              </Link>
+              <div className="space-y-3">
+                <button
+                  onClick={() => handleAddToCart({ id: 3, name: "Enterprise Plan - 1 Gbps", price: 5000, image: "/images/internet-enterprise.jpg" })}
+                  className={`w-full py-3 rounded-lg font-semibold transition-colors ${
+                    addedItems[3] 
+                      ? 'bg-green-600 text-white' 
+                      : 'bg-purple-600 hover:bg-purple-700 text-white'
+                  }`}
+                >
+                  {addedItems[3] ? '✓ Added to Cart' : 'Add to Cart'}
+                </button>
+                <Link
+                  href="/contact"
+                  className="block bg-gray-800 hover:bg-gray-900 text-white py-3 rounded-lg font-semibold transition-colors"
+                >
+                  Get Quote
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -225,33 +277,59 @@ export default function Services() {
               <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <div className="text-2xl text-blue-600">📺</div>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Set-Top Boxes</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Set-Top Box HD</h3>
+              <div className="text-lg font-bold text-gray-800 mb-2">₹3,500</div>
               <p className="text-gray-600 mb-4">
                 Modern digital set-top boxes with HD/4K streaming, recording capabilities, and smart TV features.
               </p>
-              <Link
-                href="/contact"
-                className="text-blue-600 hover:text-blue-800 font-semibold"
-              >
-                Learn More →
-              </Link>
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleAddToCart({ id: 4, name: "Set-Top Box HD", price: 3500, image: "/images/set-top-box.jpg" })}
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-colors ${
+                    addedItems[4] 
+                      ? 'bg-green-600 text-white' 
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
+                >
+                  {addedItems[4] ? '✓ Added' : 'Add to Cart'}
+                </button>
+                <Link
+                  href="/contact"
+                  className="block text-blue-600 hover:text-blue-800 font-semibold text-sm"
+                >
+                  Learn More →
+                </Link>
+              </div>
             </div>
 
-            {/* Network Design */}
+            {/* Fiber Installation */}
             <div className="bg-white rounded-lg p-6 shadow-lg text-center">
               <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <div className="text-2xl text-green-600">🎯</div>
+                <div className="text-2xl text-green-600">🔗</div>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Network Design</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Fiber Installation</h3>
+              <div className="text-lg font-bold text-gray-800 mb-2">₹15,000</div>
               <p className="text-gray-600 mb-4">
-                Custom network architecture and design services for commercial and enterprise applications.
+                Professional fiber optic cable installation for residential properties with testing and certification.
               </p>
-              <Link
-                href="/contact"
-                className="text-green-600 hover:text-green-800 font-semibold"
-              >
-                Learn More →
-              </Link>
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleAddToCart({ id: 5, name: "Fiber Optic Installation - Residential", price: 15000, image: "/images/fiber-installation.jpg" })}
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-colors ${
+                    addedItems[5] 
+                      ? 'bg-green-600 text-white' 
+                      : 'bg-green-600 hover:bg-green-700 text-white'
+                  }`}
+                >
+                  {addedItems[5] ? '✓ Added' : 'Add to Cart'}
+                </button>
+                <Link
+                  href="/contact"
+                  className="block text-green-600 hover:text-green-800 font-semibold text-sm"
+                >
+                  Learn More →
+                </Link>
+              </div>
             </div>
 
             {/* Technical Support */}
@@ -259,16 +337,29 @@ export default function Services() {
               <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <div className="text-2xl text-purple-600">🛠️</div>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Technical Support</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Tech Support Plan</h3>
+              <div className="text-lg font-bold text-gray-800 mb-2">₹1,200<span className="text-sm font-normal text-gray-600">/month</span></div>
               <p className="text-gray-600 mb-4">
                 24/7 technical support and maintenance services to keep your connection running smoothly.
               </p>
-              <Link
-                href="/contact"
-                className="text-purple-600 hover:text-purple-800 font-semibold"
-              >
-                Learn More →
-              </Link>
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleAddToCart({ id: 6, name: "Technical Support Plan", price: 1200, image: "/images/tech-support.jpg" })}
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-colors ${
+                    addedItems[6] 
+                      ? 'bg-green-600 text-white' 
+                      : 'bg-purple-600 hover:bg-purple-700 text-white'
+                  }`}
+                >
+                  {addedItems[6] ? '✓ Added' : 'Add to Cart'}
+                </button>
+                <Link
+                  href="/contact"
+                  className="block text-purple-600 hover:text-purple-800 font-semibold text-sm"
+                >
+                  Learn More →
+                </Link>
+              </div>
             </div>
 
             {/* Consultation */}
@@ -276,16 +367,29 @@ export default function Services() {
               <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <div className="text-2xl text-orange-600">💼</div>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Consultation</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Network Consultation</h3>
+              <div className="text-lg font-bold text-gray-800 mb-2">₹5,000</div>
               <p className="text-gray-600 mb-4">
                 Expert consultation services to help you choose the right connectivity solutions for your needs.
               </p>
-              <Link
-                href="/contact"
-                className="text-orange-600 hover:text-orange-800 font-semibold"
-              >
-                Learn More →
-              </Link>
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleAddToCart({ id: 7, name: "Network Consultation", price: 5000, image: "/images/consultation.jpg" })}
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-colors ${
+                    addedItems[7] 
+                      ? 'bg-green-600 text-white' 
+                      : 'bg-orange-600 hover:bg-orange-700 text-white'
+                  }`}
+                >
+                  {addedItems[7] ? '✓ Added' : 'Add to Cart'}
+                </button>
+                <Link
+                  href="/contact"
+                  className="block text-orange-600 hover:text-orange-800 font-semibold text-sm"
+                >
+                  Learn More →
+                </Link>
+              </div>
             </div>
           </div>
         </div>
