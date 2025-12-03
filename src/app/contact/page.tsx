@@ -146,7 +146,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Email</h3>
-                    <p className="text-gray-600">info@iqrasolutions.com</p>
+                    <p className="text-gray-600">iqrasolutions962@gmail.com</p>
                     <p className="text-sm text-gray-500">We respond within 24 hours</p>
                   </div>
                 </div>
@@ -274,7 +274,7 @@ export default function Contact() {
               Call Now: +91 90671 19270
             </a>
             <a
-              href="mailto:info@iqrasolutions.com"
+              href="mailto:iqrasolutions962@gmail.com"
               className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold transition-colors"
             >
               Email Us
