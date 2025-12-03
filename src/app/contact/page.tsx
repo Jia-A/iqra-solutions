@@ -134,7 +134,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+91 90671 19270</p>
                     <p className="text-sm text-gray-500">Mon-Fri 8AM-8PM, Sat 9AM-5PM</p>
                   </div>
                 </div>
@@ -170,7 +170,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Emergency Support</h3>
-                    <p className="text-gray-600">+1 (555) 911-TECH</p>
+                    <p className="text-gray-600">+91 90671 19270</p>
                     <p className="text-sm text-gray-500">24/7 technical emergency line</p>
                   </div>
                 </div>
@@ -268,10 +268,10 @@ export default function Contact() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+15551234567"
+              href="tel:+919067119270"
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold transition-colors"
             >
-              Call Now: (555) 123-4567
+              Call Now: +91 90671 19270
             </a>
             <a
               href="mailto:info@iqrasolutions.com"

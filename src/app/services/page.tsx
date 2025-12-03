@@ -486,10 +486,10 @@ export default function Services() {
               Get Free Quote
             </Link>
             <Link
-              href="tel:+1234567890"
+              href="tel:+919067119270"
               className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold transition-colors"
             >
-              Call Now
+              Call Now: +91 90671 19270
             </Link>
           </div>
         </div>
