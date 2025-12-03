@@ -371,9 +371,9 @@ function PaymentMethodsContent() {
               <div className="p-4 border-t bg-gray-50">
                 <button
                   onClick={processPayment}
-                  disabled={!selectedMethod || processing || !isCardFormValid()}
+                  disabled={!selectedMethod || processing || (selectedMethod === 'cards' && !isCardFormValid())}
                   className={`w-full py-3 px-4 rounded font-medium transition-all ${
-                    selectedMethod && !processing && isCardFormValid()
+                    selectedMethod && !processing && (selectedMethod !== 'cards' || isCardFormValid())
                       ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-sm'
                       : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                   }`}
