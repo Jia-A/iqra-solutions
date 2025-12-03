@@ -70,44 +70,16 @@ export default function Checkout() {
     };
   }, []);
 
-  const handleRazorpayPayment = async () => {
-    setLoading(true);
+  const handleProceedToPayment = () => {
+    // Prepare order data for payment page
+    const orderParams = new URLSearchParams({
+      total: total.toString(),
+      customer: encodeURIComponent(JSON.stringify(customerInfo)),
+      items: cartItems.length.toString()
+    });
     
-    console.log('Payment button clicked, starting demo payment...');
-    
-    // Simple demo payment - no complex conditions
-    setTimeout(() => {
-      console.log('Demo payment processing...');
-      
-      // Show success message
-      const paymentId = `DEMO_${Date.now()}`;
-      const successMessage = `✅ Payment Successful!\n\n` +
-        `Customer: ${customerInfo.name}\n` +
-        `Email: ${customerInfo.email}\n` +
-        `Amount: ₹${total.toLocaleString('en-IN')}\n` +
-        `Payment ID: ${paymentId}\n` +
-        `Items: ${cartItems.length} service(s)\n\n` +
-        `🎉 Thank you for choosing Iqra Solutions!\n\n` +
-        `📧 A confirmation email will be sent to ${customerInfo.email}\n\n` +
-        `Note: This is a demo implementation.`;
-      
-      alert(successMessage);
-      
-      // Reset form after successful payment
-      setCustomerInfo({
-        name: '',
-        email: '',
-        phone: '',
-        address: '',
-        city: '',
-        pincode: ''
-      });
-      
-      // Reset loading state
-      setLoading(false);
-      
-      console.log('Demo payment completed successfully');
-    }, 1000); // Reduced to 1 second for faster feedback
+    // Navigate to payment methods page
+    window.location.href = `/payment?${orderParams.toString()}`;
   };
 
   const isFormValid = customerInfo.name && customerInfo.email && customerInfo.phone && 
@@ -340,22 +312,10 @@ export default function Checkout() {
             {/* Payment Section */}
             <div className="mt-8 pt-8 border-t border-gray-200">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Payment</h3>
-              
-              <div className="bg-blue-50 rounded-lg p-4 mb-6">
-                <div className="flex items-center space-x-3">
-                  <div className="text-2xl">💳</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Payment System</h4>
-                    <p className="text-sm text-gray-600">
-                      Simulated payment processing for demonstration purposes
-                    </p>
-                  </div>
-                </div>
-              </div>
 
               <div className="space-y-3">
                 <button
-                  onClick={handleRazorpayPayment}
+                  onClick={handleProceedToPayment}
                   disabled={!isFormValid || cartItems.length === 0 || loading}
                   className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all duration-200 ${
                     isFormValid && cartItems.length > 0 && !loading
@@ -363,15 +323,10 @@ export default function Checkout() {
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
-                  {loading ? (
-                    <div className="flex items-center justify-center space-x-2">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      <span>Processing Payment...</span>
-                    </div>
-                  ) : cartItems.length === 0 ? (
+                  {cartItems.length === 0 ? (
                     'Add Items to Cart'
                   ) : (
-                    `Pay ₹${total.toLocaleString('en-IN')}`
+                    `Proceed to Payment ₹${total.toLocaleString('en-IN')}`
                   )}
                 </button>
                 
@@ -386,20 +341,6 @@ export default function Checkout() {
                     Cancel Payment
                   </button>
                 )}
-              </div>
-
-              <div className="mt-4 text-center">
-                <p className="text-xs text-gray-500 mb-2">
-                  By proceeding with payment, you agree to our terms of service and privacy policy.
-                </p>
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mt-3">
-                  <div className="flex items-center justify-center space-x-2">
-                    <span className="text-yellow-600">⚠️</span>
-                    <p className="text-xs text-yellow-700">
-                      <strong>Demo Mode:</strong> This is a demonstration. No real payment will be processed.
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
